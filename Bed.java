@@ -10,6 +10,10 @@ public class Bed {
     // initializes the fields of a new bed object positioned in the center of the display
     public Bed(PApplet processing) {
         
+        this.processing = processing;
+        
+        position = new float[2];
+        
         position[0] = processing.width/2;
         position[1] = processing.height/2;
         
@@ -20,12 +24,12 @@ public class Bed {
     // draws this bed at its current position
     public void update() {
         
+        processing.image(image, position[0], position[1]);
+        
         if(isDragging) {
             position[0] = processing.mouseX;
             position[1] = processing.mouseY;//sets the position of the bed to update
         }
-        
-        processing.image(image, position[0], position[1]);
     }
     
     // used to start dragging the bed, when the mouse is over this bed when it is pressed
@@ -34,8 +38,7 @@ public class Bed {
         isDragging = isMouseOver();
         
         if(isDragging) {
-            position[0] = processing.mouseX;
-            position[1] = processing.mouseY;
+            update();
         }
     }
     // used to indicate that the bed is no longer being dragged
@@ -76,6 +79,9 @@ public class Bed {
     public void rotate() {
         
         processing.image(image, position[0], position[1], rotations*PApplet.PI/2);
+    }
+    public float getPosition(int a) {
+        return position[a];
     }
 }
     

@@ -67,7 +67,8 @@ public class Main {
             if(dragBedIndex >= 0) {
                 if(beds[dragBedIndex] != null) {
                     beds[dragBedIndex].update();
-                }
+                    processing.image(bedImage, beds[dragBedIndex].getPosition(0), beds[dragBedIndex].getPosition(1));
+                }   
             }
         }
     }
