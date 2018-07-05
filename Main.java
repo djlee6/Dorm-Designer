@@ -36,9 +36,10 @@ public class Main {
     private PApplet processing; //instance fields of class main
     private PImage backgroundImage;
     private PImage bedImage;
-    private Bed beds[];
+    private Furniture furniture[];
     private int dragBedIndex;
     private CreateBedButton bedButton;
+    private CreateSofaButton sofaButton;
     
     public static void main(String[] args) {
         
@@ -55,9 +56,11 @@ public class Main {
                 
         dragBedIndex = -1;
         
-        beds = new Bed[4];
+        furniture = new Furniture[6];
         
         bedButton = new CreateBedButton(50, 24, processing);
+        
+        sofaButton = new CreateSofaButton(150, 24, processing);
     }
     
     public void update() {
@@ -68,39 +71,46 @@ public class Main {
         
         bedButton.update();
         
-        for(int i = 0; i < beds.length; i++) { //updates every bed object to a new position
+        sofaButton.update();
+        
+        for(int i = 0; i < furniture.length; i++) { //updates every bed object to a new position
             if(dragBedIndex >= 0) {
-                if(beds[dragBedIndex] != null) {
-                    beds[dragBedIndex].update();
+                if(furniture[dragBedIndex] != null) {
+                    furniture[dragBedIndex].update();
                 }
             }
-        }
-        for(int i = 0; i < beds.length; i++) {
-            if(beds[i] != null) {
-                processing.image(bedImage, beds[i].getPosition(0), beds[i].getPosition(1) , beds[i].getRotations()*PApplet.PI/2);
+            if(furniture[i] != null) {
+                furniture[i].update();
             }
         }
     }
     
     public void mouseDown() {
         
-        for(int i = 0; i < beds.length; i++) { //checks every bed object if the mouse is down
-            if(beds[i] != null) {
-                dragBedIndex = i;
-                beds[i].mouseDown();
+        for(int i = 0; i < furniture.length; i++) { //checks every bed object if the mouse is down
+            if(furniture[i] == null) {
+                if(bedButton.isMouseOver()) {
+                    furniture[i] = bedButton.mouseDown();
+                    return;
+                }
+                if(sofaButton.isMouseOver()) {
+                    furniture[i] = sofaButton.mouseDown();
+                    return;
+                }
             }
-            if(beds[i] == null) {
-                beds[i] = bedButton.mouseDown();
+            if(furniture[i] != null) {
+                furniture[i].mouseDown();
+                dragBedIndex = i;
             }
         }
     }
     
     public void mouseUp() {
         
-        for(int i = 0; i < beds.length; i++) { //checks every bed object if the mouse is down
-            if(beds[i] != null) {
+        for(int i = 0; i < furniture.length; i++) { //checks every bed object if the mouse is down
+            if(furniture[i] != null) {
                 dragBedIndex = -1;
-                beds[i].mouseUp();
+                furniture[i].mouseUp();
             }
         }
     }
@@ -116,20 +126,20 @@ public class Main {
             }
         }*/
         if(processing.key == 'd' || processing.key == 'D') { //if a d is pressed it checks all non null bed objects if the mouse if over it
-            for(int i = 0; i < beds.length; i++) {
-                if(beds[i] != null) {
-                    if(beds[i].isMouseOver()) { //if a mouse is over the bed object it sets the reference to null
-                        beds[i] = null;
+            for(int i = 0; i < furniture.length; i++) {
+                if(furniture[i] != null) {
+                    if(furniture[i].isMouseOver()) { //if a mouse is over the bed object it sets the reference to null
+                        furniture[i] = null;
                         return;
                     }
                 }
             }
         }
         if(processing.key == 'r' || processing.key == 'R') {
-            for(int i = 0; i < beds.length; i++) {
-                if(beds[i] != null) {
-                    if(beds[i].isMouseOver()) {
-                        beds[i].rotate();
+            for(int i = 0; i < furniture.length; i++) {
+                if(furniture[i] != null) {
+                    if(furniture[i].isMouseOver()) {
+                        furniture[i].rotate();
                         return;
                     }
                 }

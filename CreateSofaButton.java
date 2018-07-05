@@ -1,5 +1,5 @@
 
-public class CreateBedButton {
+public class CreateSofaButton {
     
     private static final int WIDTH = 96; //instance fields of class CreateBedButton
     private static final int HEIGHT = 32;
@@ -9,7 +9,7 @@ public class CreateBedButton {
     private String label;
     
 
-    public CreateBedButton(float x, float y, PApplet processing) {
+    public CreateSofaButton(float x, float y, PApplet processing) {
         
         this.processing = processing;
         
@@ -22,7 +22,7 @@ public class CreateBedButton {
         position[4] = x;
         position[5] = y;
         
-        label = "Create Bed"; //initializes label
+        label = "Create Sofa"; //initializes label
             
         processing.rect(position[0], position[1], position[2], position[3]); //draws a rectangle
         
@@ -44,7 +44,7 @@ public class CreateBedButton {
     public Furniture mouseDown() {
         
         if(isMouseOver()) { //if the user clicks on the button a new bed is declared
-            return new Furniture("bed", processing);
+            return new Furniture("sofa", processing);
         }
         else {
             return null;
