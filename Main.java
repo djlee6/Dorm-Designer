@@ -2,7 +2,7 @@
 //
 // Title:           DormDesigner2000
 // Files:           DormDesigner.jar
-// Course:          300, Summer 2018, and 2018
+// Course:          300, Summer, and 2018
 //
 // Author:          Daniel Lee
 // Email:           djlee6@wisc.edu
@@ -72,7 +72,7 @@ public class Main {
         }
         for(int i = 0; i < beds.length; i++) {
             if(beds[i] != null) {
-                processing.image(bedImage, beds[i].getPosition(0), beds[i].getPosition(1));
+                processing.image(bedImage, beds[i].getPosition(0), beds[i].getPosition(1) , beds[i].getRotations()*PApplet.PI/2);
             }
         }
     }

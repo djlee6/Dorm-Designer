@@ -19,12 +19,12 @@ public class Bed {
         
         image = processing.loadImage("images/bed.png");
         
-        processing.image(image, position[0], position[1]); 
+        rotations = 0;
     }
     // draws this bed at its current position
     public void update() {
         
-        processing.image(image, position[0], position[1]);
+        processing.image(image, position[0], position[1], rotations*PApplet.PI/2);
         
         if(isDragging) {
             position[0] = processing.mouseX;
@@ -77,11 +77,15 @@ public class Bed {
     }
     //method to rotate the image 
     public void rotate() {
-        
+        rotations++;
         processing.image(image, position[0], position[1], rotations*PApplet.PI/2);
     }
-    public float getPosition(int a) {
+    
+    public float getPosition(int a) { //method to get the position of the bed for update in the main class
         return position[a];
+    }
+    public int getRotations() {
+        return rotations;
     }
 }
     
