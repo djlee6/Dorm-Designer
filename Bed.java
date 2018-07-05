@@ -84,7 +84,7 @@ public class Bed {
     public float getPosition(int a) { //method to get the position of the bed for update in the main class
         return position[a];
     }
-    public int getRotations() {
+    public int getRotations() {//method to return the number of rotations 
         return rotations;
     }
 }

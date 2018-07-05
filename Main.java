@@ -38,6 +38,7 @@ public class Main {
     private PImage bedImage;
     private Bed beds[];
     private int dragBedIndex;
+    private CreateBedButton bedButton;
     
     public static void main(String[] args) {
         
@@ -55,6 +56,8 @@ public class Main {
         dragBedIndex = -1;
         
         beds = new Bed[4];
+        
+        bedButton = new CreateBedButton(50, 24, processing);
     }
     
     public void update() {
@@ -62,6 +65,8 @@ public class Main {
         processing.background(95,158,160); //sets background color of room
         
         processing.image(backgroundImage, processing.width/2, processing.height/2); //places the background image in center of window
+        
+        bedButton.update();
         
         for(int i = 0; i < beds.length; i++) { //updates every bed object to a new position
             if(dragBedIndex >= 0) {
@@ -84,6 +89,9 @@ public class Main {
                 dragBedIndex = i;
                 beds[i].mouseDown();
             }
+            if(beds[i] == null) {
+                beds[i] = bedButton.mouseDown();
+            }
         }
     }
     
@@ -99,19 +107,18 @@ public class Main {
     
     public void keyPressed() {
         
-        if(processing.key == 'b' || processing.key == 'B') { //if a b is pressed it creates a new bed object set to the center of the screen
+       /* if(processing.key == 'b' || processing.key == 'B') { //if a b is pressed it creates a new bed object set to the center of the screen
             for(int i = 0; i < beds.length; i++) {
                 if(beds[i] == null) {
                     beds[i] = new Bed(processing);
                     return;
                 }
             }
-        }
+        }*/
         if(processing.key == 'd' || processing.key == 'D') { //if a d is pressed it checks all non null bed objects if the mouse if over it
             for(int i = 0; i < beds.length; i++) {
                 if(beds[i] != null) {
-                    boolean isOver = beds[i].isMouseOver();
-                    if(isOver) { //if a mouse is over the bed object it sets the reference to null
+                    if(beds[i].isMouseOver()) { //if a mouse is over the bed object it sets the reference to null
                         beds[i] = null;
                         return;
                     }
@@ -121,8 +128,7 @@ public class Main {
         if(processing.key == 'r' || processing.key == 'R') {
             for(int i = 0; i < beds.length; i++) {
                 if(beds[i] != null) {
-                    boolean isOver = beds[i].isMouseOver();
-                    if(isOver) {
+                    if(beds[i].isMouseOver()) {
                         beds[i].rotate();
                         return;
                     }
