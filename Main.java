@@ -42,6 +42,9 @@ public class Main {
     private CreateFurnitureButton dresserButton;
     private CreateFurnitureButton deskButton;
     private CreateFurnitureButton sinkButton;
+    private SaveButton saveButton;
+    private LoadButton loadButton;
+    private ClearButton clearButton;
     
     public static void main(String[] args) {
         
@@ -59,14 +62,13 @@ public class Main {
         furniture = new Furniture[6];
         
         bedButton = new CreateFurnitureButton("Bed", 50, 24, processing);
-        
         sofaButton = new CreateFurnitureButton("Sofa", 150, 24, processing);
-        
         dresserButton = new CreateFurnitureButton("Dresser", 250, 24, processing);
-        
         deskButton = new CreateFurnitureButton("Desk", 350, 24, processing);
-        
         sinkButton = new CreateFurnitureButton("Sink", 450, 24, processing);
+        clearButton = new ClearButton(550, 24, processing);
+        saveButton = new SaveButton(650, 24, processing);
+        loadButton = new LoadButton(750, 24, processing);
     }
     
     public void update() { //update method displays current furniture positions
@@ -76,14 +78,13 @@ public class Main {
         processing.image(backgroundImage, processing.width/2, processing.height/2); //places the background image in center of window
         
         bedButton.update();
-        
         sofaButton.update();
-        
         dresserButton.update();
-        
         deskButton.update();
-        
         sinkButton.update();
+        clearButton.update();
+        saveButton.update();
+        loadButton.update();
         
         for(int i = 0; i < furniture.length; i++) { //updates every furniture object to a new position
             if(dragBedIndex >= 0) {
@@ -126,6 +127,19 @@ public class Main {
                 furniture[i].mouseDown(furniture);
                 dragBedIndex = i;
             }
+        }
+        if(clearButton.isMouseOver()) {
+            if(clearButton.mouseDown()) {
+                for(int j = 0; j < furniture.length; j++) {
+                    furniture[j] = null;
+                }
+            }
+        }
+        if(saveButton.isMouseOver()) {
+            saveButton.mouseDown(furniture);
+        }
+        if(loadButton.isMouseOver()) {
+            loadButton.mouseDown(furniture);
         }
     }
     
