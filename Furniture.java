@@ -80,12 +80,5 @@ public class Furniture {
         rotations++;
         processing.image(image, position[0], position[1], rotations*PApplet.PI/2);
     }
-    
-    public float getPosition(int a) { //method to get the position of the bed for update in the main class
-        return position[a];
-    }
-    public int getRotations() {//method to return the number of rotations 
-        return rotations;
-    }
 }
     

@@ -35,7 +35,6 @@ public class Main {
     
     private PApplet processing; //instance fields of class main
     private PImage backgroundImage;
-    private PImage bedImage;
     private Furniture furniture[];
     private int dragBedIndex;
     private CreateBedButton bedButton;
@@ -46,13 +45,11 @@ public class Main {
         Utility.startApplication(); //begins program showing the dorm room
     }
     
-    public Main(PApplet processing) {
+    public Main(PApplet processing) { //initializes Main class instance fields
         
         this.processing = processing;
         
-        backgroundImage = processing.loadImage("images/background.png"); //loads the background image of the room
-        
-        bedImage = processing.loadImage("images/bed.png"); //sets bedImage reference to the bed picture
+        backgroundImage = processing.loadImage("images/background.png");
                 
         dragBedIndex = -1;
         
@@ -63,7 +60,7 @@ public class Main {
         sofaButton = new CreateSofaButton(150, 24, processing);
     }
     
-    public void update() {
+    public void update() { //update method displays current furniture positions
         
         processing.background(95,158,160); //sets background color of room
         
@@ -73,7 +70,7 @@ public class Main {
         
         sofaButton.update();
         
-        for(int i = 0; i < furniture.length; i++) { //updates every bed object to a new position
+        for(int i = 0; i < furniture.length; i++) { //updates every furniture object to a new position
             if(dragBedIndex >= 0) {
                 if(furniture[dragBedIndex] != null) {
                     furniture[dragBedIndex].update();
@@ -85,29 +82,29 @@ public class Main {
         }
     }
     
-    public void mouseDown() {
+    public void mouseDown() { //method checks where the mouse is clicked
         
-        for(int i = 0; i < furniture.length; i++) { //checks every bed object if the mouse is down
+        for(int i = 0; i < furniture.length; i++) {
             if(furniture[i] == null) {
-                if(bedButton.isMouseOver()) {
+                if(bedButton.isMouseOver()) {//if the mouse clicks the bedButton a new bed is created
                     furniture[i] = bedButton.mouseDown();
                     return;
                 }
-                if(sofaButton.isMouseOver()) {
+                if(sofaButton.isMouseOver()) {//if the mouse clicks the sofabutton a new sofa is created
                     furniture[i] = sofaButton.mouseDown();
                     return;
                 }
             }
-            if(furniture[i] != null) {
+            if(furniture[i] != null) {//if a furniture object is clicked it can be moved
                 furniture[i].mouseDown();
                 dragBedIndex = i;
             }
         }
     }
     
-    public void mouseUp() {
+    public void mouseUp() { //if the mouse is lifted up the furniture objects cannot be moved
         
-        for(int i = 0; i < furniture.length; i++) { //checks every bed object if the mouse is down
+        for(int i = 0; i < furniture.length; i++) {
             if(furniture[i] != null) {
                 dragBedIndex = -1;
                 furniture[i].mouseUp();
@@ -115,27 +112,19 @@ public class Main {
         }
     }
     
-    public void keyPressed() {
-        
-       /* if(processing.key == 'b' || processing.key == 'B') { //if a b is pressed it creates a new bed object set to the center of the screen
-            for(int i = 0; i < beds.length; i++) {
-                if(beds[i] == null) {
-                    beds[i] = new Bed(processing);
-                    return;
-                }
-            }
-        }*/
-        if(processing.key == 'd' || processing.key == 'D') { //if a d is pressed it checks all non null bed objects if the mouse if over it
+    public void keyPressed() { //allows for user key input to delete or rotate a furniture object
+
+        if(processing.key == 'd' || processing.key == 'D') { //if a d is pressed it checks all non null furniture objects if the mouse if over it
             for(int i = 0; i < furniture.length; i++) {
                 if(furniture[i] != null) {
-                    if(furniture[i].isMouseOver()) { //if a mouse is over the bed object it sets the reference to null
+                    if(furniture[i].isMouseOver()) { //if a mouse is over the furniture object it sets the reference to null
                         furniture[i] = null;
                         return;
                     }
                 }
             }
         }
-        if(processing.key == 'r' || processing.key == 'R') {
+        if(processing.key == 'r' || processing.key == 'R') { //if a r is pressed it checks which furniture object it is over and rotates it
             for(int i = 0; i < furniture.length; i++) {
                 if(furniture[i] != null) {
                     if(furniture[i].isMouseOver()) {
