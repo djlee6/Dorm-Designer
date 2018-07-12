@@ -1,6 +1,6 @@
 //////////////////// ALL ASSIGNMENTS INCLUDE THIS SECTION /////////////////////
 //
-// Title:           DormDesigner2000
+// Title:           DormDesigner3000
 // Files:           DormDesigner.jar
 // Course:          300, Summer, and 2018
 //
@@ -37,8 +37,11 @@ public class Main {
     private PImage backgroundImage;
     private Furniture furniture[];
     private int dragBedIndex;
-    private CreateBedButton bedButton;
-    private CreateSofaButton sofaButton;
+    private CreateFurnitureButton bedButton;
+    private CreateFurnitureButton sofaButton;
+    private CreateFurnitureButton dresserButton;
+    private CreateFurnitureButton deskButton;
+    private CreateFurnitureButton sinkButton;
     
     public static void main(String[] args) {
         
@@ -55,9 +58,15 @@ public class Main {
         
         furniture = new Furniture[6];
         
-        bedButton = new CreateBedButton(50, 24, processing);
+        bedButton = new CreateFurnitureButton("Bed", 50, 24, processing);
         
-        sofaButton = new CreateSofaButton(150, 24, processing);
+        sofaButton = new CreateFurnitureButton("Sofa", 150, 24, processing);
+        
+        dresserButton = new CreateFurnitureButton("Dresser", 250, 24, processing);
+        
+        deskButton = new CreateFurnitureButton("Desk", 350, 24, processing);
+        
+        sinkButton = new CreateFurnitureButton("Sink", 450, 24, processing);
     }
     
     public void update() { //update method displays current furniture positions
@@ -69,6 +78,12 @@ public class Main {
         bedButton.update();
         
         sofaButton.update();
+        
+        dresserButton.update();
+        
+        deskButton.update();
+        
+        sinkButton.update();
         
         for(int i = 0; i < furniture.length; i++) { //updates every furniture object to a new position
             if(dragBedIndex >= 0) {
@@ -94,9 +109,21 @@ public class Main {
                     furniture[i] = sofaButton.mouseDown();
                     return;
                 }
+                if(dresserButton.isMouseOver()) {
+                    furniture[i] = dresserButton.mouseDown();
+                    return;
+                }
+                if(deskButton.isMouseOver()) {
+                    furniture[i] = deskButton.mouseDown();
+                    return;
+                }
+                if(sinkButton.isMouseOver()) {
+                    furniture[i] = sinkButton.mouseDown();
+                    return;
+                }
             }
             if(furniture[i] != null) {//if a furniture object is clicked it can be moved
-                furniture[i].mouseDown();
+                furniture[i].mouseDown(furniture);
                 dragBedIndex = i;
             }
         }

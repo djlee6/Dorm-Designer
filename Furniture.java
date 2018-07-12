@@ -1,7 +1,7 @@
 
-public class Furniture {
+public class Furniture implements DormGUI {
     
-    private PApplet processing; //instance fields of class Bed
+    private PApplet processing; //instance fields of class Furniture
     private PImage image;
     private float[] position;
     private boolean isDragging;
@@ -28,12 +28,12 @@ public class Furniture {
         
         if(isDragging) {
             position[0] = processing.mouseX;
-            position[1] = processing.mouseY;//sets the position of the bed to update
+            position[1] = processing.mouseY;//sets the position of the furniture to update
         }
     }
     
-    // used to start dragging the bed, when the mouse is over this bed when it is pressed
-    public void mouseDown() {
+    // used to start dragging the furniture, when the mouse is over this bed when it is pressed
+    public void mouseDown(Furniture[] furniture) {
         
         isDragging = isMouseOver();
         
@@ -41,12 +41,12 @@ public class Furniture {
             update();
         }
     }
-    // used to indicate that the bed is no longer being dragged
+    // used to indicate that the furniture is no longer being dragged
     public void mouseUp() {
         
         isDragging = false;
     }
-    // helper method to determine whether the mouse is currently over this bed
+    // helper method to determine whether the mouse is currently over this furniture
     public boolean isMouseOver() {
         
         if(rotations % 2 == 0) { //if the bed image is rotated an even number of times
