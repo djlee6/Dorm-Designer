@@ -80,5 +80,12 @@ public class Furniture implements DormGUI {
         rotations++;
         processing.image(image, position[0], position[1], rotations*PApplet.PI/2);
     }
+    public Furniture(String type, float x, float y,int r, PApplet processing) {
+        this.processing = processing;
+        
+        image = processing.loadImage("images/" + type + ".png");
+        
+        processing.image(image, x, y, r*PApplet.PI/2);
+    }
 }
     
