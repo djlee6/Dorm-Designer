@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.ArrayList;
 
 //////////////////// ALL ASSIGNMENTS INCLUDE THIS SECTION /////////////////////
@@ -83,19 +84,20 @@ public class Main {
         }
     
     
-public void mouseDown() {
+public void mouseDown() throws IOException {
     Furniture[] furniture = extractFurnitureFromGUIObjects();
     	
     for(int i=0;i<guiObjects.size();i++) {
     	if(guiObjects.get(i).isMouseOver() ) {
     		if(guiObjects.get(i) instanceof ClearButton) {
-//    			button = (ClearButton) guiObjects.get(i);
-//    			if(button.mouseDown()) {
-//    			furniture = null;
-    		return;
+    			guiObjects.get(i).mouseDown(furniture);
+    			for(int q = 0; q < furniture.length; q++) {
+    				furniture[q] = null;
+    			}
     		}
     	if(guiObjects.get(i) instanceof LoadButton) {
     		guiObjects.get(i).mouseDown(furniture);
+
     		return;
     	}
     	if(guiObjects.get(i) instanceof SaveButton) {
@@ -122,17 +124,7 @@ public void mouseDown() {
     	}
     	replaceFurnitureInGUIObjects(furniture);
     }
-    }
-    		
-    	
-    	   
-//if(saveButton.isMouseOver()) {
-//    saveButton.mouseDown(furniture);
-//}
-//if(loadButton.isMouseOver()) {
-   //.mouseDown(furniture);
-//}
-    
+} 
     
     public void mouseUp() { //if the mouse is lifted up the furniture objects cannot be moved
     	for(int i = 0; i < guiObjects.size(); i++) {

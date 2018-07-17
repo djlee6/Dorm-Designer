@@ -5,10 +5,11 @@ public class Furniture implements DormGUI {
     private float[] position;
     private boolean isDragging;
     private int rotations;
+    private String furnitureType;
 
     // initializes the fields of a new bed object positioned in the center of the display
     public Furniture(String furnitureType, PApplet processing) {
-        
+        this.furnitureType = furnitureType;
         this.processing = processing;
         
         position = new float[2];
@@ -79,4 +80,19 @@ public class Furniture implements DormGUI {
         rotations++;
         processing.image(image, position[0], position[1], rotations*PApplet.PI/2);
     }
+    public String getVals() {
+    	String data;
+    	data= furnitureType.toLowerCase() + ":" + String.valueOf(position[0]) + 
+    			"," + String.valueOf(position[1]) + "," + String.valueOf(rotations);
+    return data;
+    }
+    public Furniture(String type, float x, float y,int r, PApplet processing) {
+        this.processing = processing;
+       
+        image = processing.loadImage("images/" + type + ".png");
+        
+        processing.image(image, x, y, r*PApplet.PI/2);
+        
+    }
 }
+    

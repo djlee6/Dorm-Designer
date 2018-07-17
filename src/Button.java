@@ -1,4 +1,5 @@
 
+
 public class Button implements DormGUI {
 	
 	private static final int WIDTH = 96;
@@ -47,7 +48,7 @@ public class Button implements DormGUI {
 	}
 	
 	@Override
-	public void mouseDown(Furniture[] furniture) {
+	public void mouseDown(Furniture[] furniture){
 		 if(isMouseOver())  {
 		        System.out.println("A button was pressed.");
 		 }
