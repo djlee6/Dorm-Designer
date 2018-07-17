@@ -109,40 +109,36 @@ public class Main {
                 guiObjects.add(furniture[i]);
     }
     
-    public void mouseDown() { //method checks where the mouse is clicked
+    public void mouseDown() { //method checks which object the mouse clicks on
         
-            Furniture[] furniture = extractFurnitureFromGUIObjects();
-            for(int i = 0; i < guiObjects.size(); i++) {
-                if(guiObjects.get(i).isMouseOver()) {
-                    if(guiObjects.get(i) instanceof ClearButton) {
-                        guiObjects.get(i).mouseDown(furniture);
-                        for(int j = 0; j < furniture.length; j++) {
-                            furniture[j] = null;
-                        }
-                        break;
-                        }
+        Furniture[] furniture = extractFurnitureFromGUIObjects();
+        for(int i = 0; i < guiObjects.size(); i++) {
+            if(guiObjects.get(i).isMouseOver()) {
+                if(guiObjects.get(i) instanceof ClearButton) {
+                    guiObjects.get(i).mouseDown(furniture);
+                    for(int j = 0; j < furniture.length; j++) {
+                        furniture[j] = null;
                     }
-                    if(guiObjects.get(i) instanceof SaveButton || guiObjects.get(i) instanceof LoadButton) {
-                        guiObjects.get(i).mouseDown(furniture);
-                        break;
-                    }
-                    if(guiObjects.get(i) instanceof CreateFurnitureButton) {
-                        button = (CreateFurnitureButton)guiObjects.get(i);
-                        for(int k = 0; k < furniture.length; k++) {
-                            if(furniture[k] == null) {
-                                furniture[k] = button.mouseDown();
-                                break;
-                            }
+                }
+                if(guiObjects.get(i) instanceof SaveButton || guiObjects.get(i) instanceof LoadButton) {
+                    guiObjects.get(i).mouseDown(furniture);
+                    break;
+                }
+                if(guiObjects.get(i) instanceof CreateFurnitureButton) {
+                    button = (CreateFurnitureButton)guiObjects.get(i);
+                    for(int k = 0; k < furniture.length; k++) {
+                        if(furniture[k] == null) {
+                            furniture[k] = button.mouseDown();
+                            break;
                         }
                     }
-                    if(guiObjects.get(i) instanceof Furniture) {
-                        guiObjects.get(i).mouseDown(furniture);
-                        break;
-                    }
-                
+                }
+                if(guiObjects.get(i) instanceof Furniture) {
+                    guiObjects.get(i).mouseDown(furniture);
+                    break;
+                }
             }
-               // Your code comes here to explore guiObjects ArrayList and call the related mouseDown(furniture) method
-               // if the element is pressed
+        }
         replaceFurnitureInGUIObjects(furniture);
     }
     
