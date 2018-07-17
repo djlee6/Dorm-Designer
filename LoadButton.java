@@ -3,8 +3,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Scanner;
 
 public class LoadButton extends Button {
     
@@ -43,7 +41,7 @@ public class LoadButton extends Button {
         if(file.equals(null)) {
             throw new FileNotFoundException("FileNotFoundException when loading room");
         }
-        if(file.canRead() == false) {
+        if(file.canRead() != true) {
             throw new IOException("IOException: file cannot be read when loading room");
         }
         BufferedReader reader = new BufferedReader(new FileReader(file));
