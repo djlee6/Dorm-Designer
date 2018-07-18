@@ -6,11 +6,12 @@ import java.io.PrintWriter;
 import java.util.Arrays;
 
 public class SaveButton extends Button {
-    private PApplet processing;//instance fields of class SaveButton
+   
 
     public SaveButton(float x, float y, PApplet processing){ 
-        super("Save Room", x, y, processing);
+        super(x, y, processing);
         this.processing = processing;
+        super.label = "Save Room";
     }
     
     public void update() { 
@@ -27,6 +28,7 @@ public class SaveButton extends Button {
 				
 					e.printStackTrace();
 				}
+        		
         }
     }
     }

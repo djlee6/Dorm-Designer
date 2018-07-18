@@ -8,12 +8,12 @@ public class Button implements DormGUI {
 	private float[] position;
 	protected String label;
 
-	public Button(String string, float x, float y, PApplet processing) {
+	public Button( float x, float y, PApplet processing) {
 		  this.processing = processing;
 	        
 	        position = new float[6];
 	        
-	        label = string;
+
 	        position[0] = x - WIDTH/2; //array contains the sides of the rectangle and the center point
 	        position[1] = y - HEIGHT/2;
 	        position[2] = x + WIDTH/2;

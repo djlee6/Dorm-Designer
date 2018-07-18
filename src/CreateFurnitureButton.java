@@ -5,10 +5,11 @@ public class CreateFurnitureButton extends Button {
 
     public CreateFurnitureButton(String type, float x, float y, PApplet processing) { //CreateBedButton constructor to draw the box
         
-        super("Create " + type, x, y, processing);
+        super(x, y, processing);
         
         this.processing = processing;
         this.type = type;
+        super.label = "Create" + type;
     }
     public void update() { 
         

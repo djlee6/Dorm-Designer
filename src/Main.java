@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 //////////////////// ALL ASSIGNMENTS INCLUDE THIS SECTION /////////////////////
 //
-// Title:           DormDesigner2000
+// Title:           DormDesigner3000
 // Files:           DormDesigner.jar
 // Course:          300, Summer, and 2018
 //
@@ -79,72 +79,72 @@ public class Main {
         processing.image(backgroundImage, processing.width/2, processing.height/2); //places the background image in center of window
         
         for( int i = 0; i < guiObjects.size(); i++) {
-        	guiObjects.get(i).update();
+            guiObjects.get(i).update();
         }
         }
     
     
-public void mouseDown() throws IOException {
-    Furniture[] furniture = extractFurnitureFromGUIObjects();
-    	
-    for(int i=0;i<guiObjects.size();i++) {
-    	if(guiObjects.get(i).isMouseOver() ) {
-    		if(guiObjects.get(i) instanceof ClearButton) {
-    			guiObjects.get(i).mouseDown(furniture);
-    			for(int q = 0; q < furniture.length; q++) {
-    				furniture[q] = null;
-    			}
-    		}
-    	if(guiObjects.get(i) instanceof LoadButton) {
-    		guiObjects.get(i).mouseDown(furniture);
-
-    		return;
-    	}
-    	if(guiObjects.get(i) instanceof SaveButton) {
-    		guiObjects.get(i).mouseDown(furniture);
-    		return;
-    	}
-    	if(guiObjects.get(i) instanceof CreateFurnitureButton) {
-    		
-    		button = (CreateFurnitureButton)guiObjects.get(i);
-    		for(int h = 0; h < furniture.length; h++) {
-    			if(furniture[h] == null) {
-    				furniture[h] = button.mouseDown();
-    				break;
-    		}
-    		}    		
-    	}
-    	if(guiObjects.get(i) instanceof Furniture) {
-    		
-			guiObjects.get(i).mouseDown(furniture);
-			return;
-    		
-    	}
-    	
-    	}
-    	replaceFurnitureInGUIObjects(furniture);
-    }
-} 
+    public void mouseDown() throws IOException {
+        Furniture[] furniture = extractFurnitureFromGUIObjects();
+        
+        for(int i=0;i<guiObjects.size();i++) {
+            if(guiObjects.get(i).isMouseOver() ) {
+                if(guiObjects.get(i) instanceof ClearButton) {
+                    guiObjects.get(i).mouseDown(furniture);
+                    for(int q = 0; q < furniture.length; q++) {
+                        furniture[q] = null;
+                    }
+                }
+                if(guiObjects.get(i) instanceof LoadButton) {
+                    guiObjects.get(i).mouseDown(furniture);
+                    furniture = LoadButton.getFurniture();
+                    replaceFurnitureInGUIObjects(furniture);
+                    return;
+                }
+                if(guiObjects.get(i) instanceof SaveButton) {
+                    guiObjects.get(i).mouseDown(furniture);
+                    return;
+                }
+                if(guiObjects.get(i) instanceof CreateFurnitureButton) {
+            
+                    button = (CreateFurnitureButton)guiObjects.get(i);
+                    for(int h = 0; h < furniture.length; h++) {
+                        if(furniture[h] == null) {
+                            furniture[h] = button.mouseDown();
+                            break;
+                        }
+                    }           
+                }
+                if(guiObjects.get(i) instanceof Furniture) {
+                    guiObjects.get(i).mouseDown(furniture);
+                    return;
+                }
+            }
+            replaceFurnitureInGUIObjects(furniture);
+        }
+    } 
     
     public void mouseUp() { //if the mouse is lifted up the furniture objects cannot be moved
-    	for(int i = 0; i < guiObjects.size(); i++) {
+        for(int i = 0; i < guiObjects.size(); i++) {
                 guiObjects.get(i).mouseUp();
-    	}
+        }
     }
     
     public void keyPressed() { //allows for user key input to delete or rotate a furniture object
-Furniture[] furniture = extractFurnitureFromGUIObjects();
+        Furniture[] furniture = extractFurnitureFromGUIObjects();
 
 
         if(processing.key == 'd' || processing.key == 'D') { //if a d is pressed it checks all non null furniture objects if the mouse if over it
             for(int i = 0; i < furniture.length; i++) {
 
-                    if(furniture[i].isMouseOver()) { //if a mouse is over the furniture object it sets the reference to null
-                        furniture[i] = null;
-                        replaceFurnitureInGUIObjects(furniture);
-                        return;
-                    }
-                
+                if(furniture[i].isMouseOver()) { //if a mouse is over the furniture object it sets the reference to null
+                    furniture[i] = null;
+                    replaceFurnitureInGUIObjects(furniture);
+                    return;
+                }
+                else {
+                    return;
+                }
             }
         }
         if(processing.key == 'r' || processing.key == 'R') { //if a r is pressed it checks which furniture object it is over and rotates it
@@ -155,8 +155,10 @@ Furniture[] furniture = extractFurnitureFromGUIObjects();
                         replaceFurnitureInGUIObjects(furniture);
                         return;
                     }
-                
-            }
+                    else {
+                        return;
+                    }
+             }
         }
         
     }

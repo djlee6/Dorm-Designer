@@ -82,17 +82,29 @@ public class Furniture implements DormGUI {
     }
     public String getVals() {
     	String data;
+    
     	data= furnitureType.toLowerCase() + ":" + String.valueOf(position[0]) + 
     			"," + String.valueOf(position[1]) + "," + String.valueOf(rotations);
+
+    
     return data;
     }
     public Furniture(String type, float x, float y,int r, PApplet processing) {
         this.processing = processing;
+        this.furnitureType = type;
        
+        position = new float[2];
+        
+        this.position[0] = x;
+        this.position[1] = y;
+        this.rotations = r;
+
+        
         image = processing.loadImage("images/" + type + ".png");
         
         processing.image(image, x, y, r*PApplet.PI/2);
         
+       
     }
 }
     
