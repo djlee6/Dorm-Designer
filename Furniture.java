@@ -1,15 +1,15 @@
-
 public class Furniture implements DormGUI {
     
-    private PApplet processing; //instance fields of class Furniture
+    private PApplet processing; //instance fields of class Bed
     private PImage image;
     private float[] position;
     private boolean isDragging;
     private int rotations;
+    private String furnitureType;
 
     // initializes the fields of a new bed object positioned in the center of the display
     public Furniture(String furnitureType, PApplet processing) {
-        
+        this.furnitureType = furnitureType;
         this.processing = processing;
         
         position = new float[2];
@@ -28,11 +28,11 @@ public class Furniture implements DormGUI {
         
         if(isDragging) {
             position[0] = processing.mouseX;
-            position[1] = processing.mouseY;//sets the position of the furniture to update
+            position[1] = processing.mouseY;//sets the position of the bed to update
         }
     }
     
-    // used to start dragging the furniture, when the mouse is over this bed when it is pressed
+    // used to start dragging the bed, when the mouse is over this bed when it is pressed
     public void mouseDown(Furniture[] furniture) {
         
         isDragging = isMouseOver();
@@ -41,12 +41,12 @@ public class Furniture implements DormGUI {
             update();
         }
     }
-    // used to indicate that the furniture is no longer being dragged
+    // used to indicate that the bed is no longer being dragged
     public void mouseUp() {
         
         isDragging = false;
     }
-    // helper method to determine whether the mouse is currently over this furniture
+    // helper method to determine whether the mouse is currently over this bed
     public boolean isMouseOver() {
         
         if(rotations % 2 == 0) { //if the bed image is rotated an even number of times
@@ -80,12 +80,25 @@ public class Furniture implements DormGUI {
         rotations++;
         processing.image(image, position[0], position[1], rotations*PApplet.PI/2);
     }
+    public String getVals() {
+        String data;
+        data= furnitureType.toLowerCase() + ":" + String.valueOf(position[0]) + 
+                "," + String.valueOf(position[1]) + "," + String.valueOf(rotations);
+    return data;
+    }
     public Furniture(String type, float x, float y,int r, PApplet processing) {
         this.processing = processing;
+        this.furnitureType = type;
         
+        position = new float[2];
+        
+        position[0] = x;
+        position[1] = y;
+        rotations = r;
+       
         image = processing.loadImage("images/" + type + ".png");
         
-        processing.image(image, x, y, r*PApplet.PI/2);
+        processing.image(image, position[0], position[1], r*PApplet.PI/2);
     }
 }
     

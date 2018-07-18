@@ -6,6 +6,8 @@ import java.io.IOException;
 
 public class LoadButton extends Button {
     
+    private static Furniture[] loadButtonFurniture;
+    
     public LoadButton(float x, float y, PApplet processing){ 
         super("Load Room", x, y, processing);
         this.processing = processing;
@@ -28,7 +30,9 @@ public class LoadButton extends Button {
                 System.err.print(e);
             }
         }
+        update();
     }
+    
     public void mouseUp() {
         
     }
@@ -48,6 +52,7 @@ public class LoadButton extends Button {
         
         String type;
         String line;
+        String[] numStorage;
         float x;
         float y;
         int r;
@@ -56,17 +61,22 @@ public class LoadButton extends Button {
         for(int i = 0; i < furniture.length; i++) {
             furniture[i] = null;
         }
-        
-        while(reader.readLine() != null) {
-            line = reader.readLine();
+
+        while((line = reader.readLine()) != null) {
             type = line.split(":")[0].trim().toLowerCase();
-            x = Float.parseFloat(line);
-            y = Float.parseFloat(line);
-            r = Integer.parseInt(line);
-            
+            line = line.replace(type + ":", "");
+            numStorage = line.split(",");
+            x = Float.parseFloat(numStorage[0]);
+            y = Float.parseFloat(numStorage[1]);
+            r = Integer.parseInt(numStorage[2]);
+                    System.out.println("PostStorage" + type + x + y + r);
             furniture[j] = new Furniture(type, x, y, r, processing);
             j++;
-        }
+            }
+        loadButtonFurniture = furniture;
         reader.close();
+    }
+    public static Furniture[] getFurniture() {
+        return loadButtonFurniture;
     }
 }

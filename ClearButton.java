@@ -1,6 +1,5 @@
 
 public class ClearButton extends Button {
-    private PApplet processing;//instance fields of class ClearButton
     
     public ClearButton(float x, float y, PApplet processing) { //initializes ClearButton
         super("Clear Room", x, y, processing);
@@ -12,11 +11,17 @@ public class ClearButton extends Button {
     }
     
     public boolean mouseDown() { //method checks if the button was clicked
-        if(super.isMouseOver()) {
+        if(isMouseOver()) {
             return true;
         }
         else {
             return false;
         }
-    } 
+    }
+    public void mouseUp() {
+        
+    }
+    public boolean isMouseOver() {
+        return super.isMouseOver();
+    }
 }
