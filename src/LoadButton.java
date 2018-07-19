@@ -69,18 +69,37 @@ public class LoadButton extends Button { //class load button will load previousl
         for(int i = 0; i < furniture.length; i++) {
             furniture[i] = null;
         }
+//        while((line = reader.readLine()) != null) {
+//        	
+//        	if(line.contains(":") && j < 100) {
+//      
+//        		type = line.split(":")[0].trim().toLowerCase();
+//        		
+//        
+//        		line = line.replace(delete + ":", "");
+//        	
+//        		numStorage = line.split(",");
+//        				
+//        		x = Float.parseFloat(numStorage[0].trim());
+//        		y = Float.parseFloat(numStorage[1].trim());
+//        		r = Integer.parseInt(numStorage[2].trim());
+//     		System.out.println(j);
+//        		furniture[j] = new Furniture(type, x, y, r, processing);
+//        		j++;
+//        		}
 
         while((line = reader.readLine()) != null) { //when there is a line to read
-            
+        	if (line != "") { //Checks if line is not an empty character
             line = line.trim(); //trim the line
             if(j < 100) { //keep array in bounds for the Main class
                 if(line.length() > 0) { //checks if there's data in the line
                     type = line.split(":")[0].trim().toLowerCase(); //splits the type from the coordinates
-                    line = line.replace(type + ":", "");
+                    String delete = line.split(":")[0];//Saves the beginning characters to be deleted later
+                    line = line.replace(delete + ":", "");//Deletes the beginning characters
                     numStorage = line.split(",");
-                    x = Float.parseFloat(numStorage[0]); //grabs the coordinates
-                    y = Float.parseFloat(numStorage[1]);
-                    r = Integer.parseInt(numStorage[2]);
+                    x = Float.parseFloat(numStorage[0].trim()); //grabs the coordinates
+                    y = Float.parseFloat(numStorage[1].trim());
+                    r = Integer.parseInt(numStorage[2].trim());
                     
                     furniture[j] = new Furniture(type, x, y, r, processing); //places a new furniture object
                     j++;
@@ -88,6 +107,7 @@ public class LoadButton extends Button { //class load button will load previousl
                 else {
                     continue;
                 }
+            }
             }
             else {
                 throw new ArrayIndexOutOfBoundsException("WARNING: array index out of bounds in load room.");
