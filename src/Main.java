@@ -140,27 +140,29 @@ public class Main {
                 if(furniture[i].isMouseOver()) { //if a mouse is over the furniture object it sets the reference to null
                     furniture[i] = null;
                     replaceFurnitureInGUIObjects(furniture);
-                    return;
+   
                 }
-                else {
-                    return;
+                if(furniture[i + 1] == null) {
+                	return;
                 }
+
             }
         }
         if(processing.key == 'r' || processing.key == 'R') { //if a r is pressed it checks which furniture object it is over and rotates it
             for(int i = 0; i < furniture.length; i++) {
-       
+           
                     if(furniture[i].isMouseOver()) {
+                    
                         furniture[i].rotate();
                         replaceFurnitureInGUIObjects(furniture);
-                        return;
                     }
-                    else {
-                        return;
+                    if(furniture[i + 1] == null) {
+                    	return;
                     }
-             }
+     
         }
         
+    }
     }
  // Max number of furniture that LoadButton will be allowed to load at once.    
     private final static int MAX_LOAD_FURNITURE = 100;        
