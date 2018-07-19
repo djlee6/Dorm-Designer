@@ -96,8 +96,11 @@ public class Main {
                 }
                 if(guiObjects.get(i) instanceof LoadButton) { //if the mouse is over LoadButton
                     guiObjects.get(i).mouseDown(furniture);
+                    
                     furniture = LoadButton.getFurniture(); //loads and replaces furniture objects
+                   if(furniture != null) {
                     replaceFurnitureInGUIObjects(furniture);
+                   }
                     return;
                 }
                 if(guiObjects.get(i) instanceof SaveButton) { //if the mouse is over SaveButton
