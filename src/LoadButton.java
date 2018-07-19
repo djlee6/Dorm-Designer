@@ -31,6 +31,9 @@ public class LoadButton extends Button {
             catch (IOException e) {
                 System.err.print(e);
             }
+            catch (ArrayIndexOutOfBoundsException e) {
+                System.err.print(e);
+            }
         }
         update();
     }
@@ -41,7 +44,7 @@ public class LoadButton extends Button {
     public boolean isMouseOver() {
         return super.isMouseOver();
     }
-    private void loadRoom(Furniture[] furniture, String filename) throws FileNotFoundException, IOException {
+    private void loadRoom(Furniture[] furniture, String filename) throws FileNotFoundException, IOException, ArrayIndexOutOfBoundsException {
         File file = new File(filename + ".ddd");
         
         if(file.equals(null)) {
@@ -65,16 +68,21 @@ public class LoadButton extends Button {
         }
 
         while((line = reader.readLine()) != null) {
-            type = line.split(":")[0].trim().toLowerCase();
-            line = line.replace(type + ":", "");
-            numStorage = line.split(",");
-            x = Float.parseFloat(numStorage[0]);
-            y = Float.parseFloat(numStorage[1]);
-            r = Integer.parseInt(numStorage[2]);
+            if(line.contains(":") && j < 100) {
+                type = line.split(":")[0].trim().toLowerCase();
+                line = line.replace(type + ":", "");
+                numStorage = line.split(",");
+                x = Float.parseFloat(numStorage[0]);
+                y = Float.parseFloat(numStorage[1]);
+                r = Integer.parseInt(numStorage[2]);
                
-            furniture[j] = new Furniture(type, x, y, r, processing);
-            j++;
+                furniture[j] = new Furniture(type, x, y, r, processing);
+                j++;
             }
+            else {
+                throw new ArrayIndexOutOfBoundsException("WARNING: array line contains no data in load room.");
+            }
+        }
         loadButtonFurniture = furniture;
         reader.close();
     }
