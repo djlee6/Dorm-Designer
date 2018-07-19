@@ -6,7 +6,7 @@ public class Button implements DormGUI {
 	private static final int HEIGHT = 32;
 	protected PApplet processing;
 	private float[] position;
-	protected String label;
+	protected String label = "Button";
 
 	public Button( float x, float y, PApplet processing) {
 		  this.processing = processing;

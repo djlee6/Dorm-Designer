@@ -18,21 +18,16 @@ public class LoadButton extends Button {
         super.update();
     }
     
-    @Override
     public void mouseDown(Furniture[] furniture) {
         if (isMouseOver()) {
             try {
                 loadRoom(furniture, "RoomData");
-                System.out.print("Room Loaded.");
             }
             catch (FileNotFoundException e) { 
-                System.err.print(e);
+                System.err.print(e.getMessage());
             }
             catch (IOException e) {
-                System.err.print(e);
-            }
-            catch (ArrayIndexOutOfBoundsException e) {
-                System.err.print(e);
+                System.err.print(e.getMessage());
             }
         }
         update();
@@ -44,14 +39,14 @@ public class LoadButton extends Button {
     public boolean isMouseOver() {
         return super.isMouseOver();
     }
-    private void loadRoom(Furniture[] furniture, String filename) throws FileNotFoundException, IOException, ArrayIndexOutOfBoundsException {
+    private void loadRoom(Furniture[] furniture, String filename) throws FileNotFoundException, IOException {
         File file = new File(filename + ".ddd");
         
         if(file.equals(null)) {
             throw new FileNotFoundException("WARNING: Could not load room contents from file RoomData.ddd.");
         }
         if(file.canRead() != true) {
-            throw new IOException("WARNING: file cannot be read when loading room");
+            throw new IOException("WARNING: Could not load room contents from file RoomData.ddd.");
         }
         BufferedReader reader = new BufferedReader(new FileReader(file));
         
@@ -68,21 +63,16 @@ public class LoadButton extends Button {
         }
 
         while((line = reader.readLine()) != null) {
-            if(line.contains(":") && j < 100) {
-                type = line.split(":")[0].trim().toLowerCase();
-                line = line.replace(type + ":", "");
-                numStorage = line.split(",");
-                x = Float.parseFloat(numStorage[0]);
-                y = Float.parseFloat(numStorage[1]);
-                r = Integer.parseInt(numStorage[2]);
+            type = line.split(":")[0].trim().toLowerCase();
+            line = line.replace(type + ":", "");
+            numStorage = line.split(",");
+            x = Float.parseFloat(numStorage[0]);
+            y = Float.parseFloat(numStorage[1]);
+            r = Integer.parseInt(numStorage[2]);
                
-                furniture[j] = new Furniture(type, x, y, r, processing);
-                j++;
+            furniture[j] = new Furniture(type, x, y, r, processing);
+            j++;
             }
-            else {
-                throw new ArrayIndexOutOfBoundsException("WARNING: array line contains no data in load room.");
-            }
-        }
         loadButtonFurniture = furniture;
         reader.close();
     }
