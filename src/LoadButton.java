@@ -23,6 +23,7 @@ public class LoadButton extends Button {
         if (isMouseOver()) {
             try {
                 loadRoom(furniture, "RoomData");
+                System.out.print("Room Loaded.");
             }
             catch (FileNotFoundException e) { 
                 System.err.print(e);
