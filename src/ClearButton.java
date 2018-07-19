@@ -1,5 +1,4 @@
 public class ClearButton extends Button {
-    private PApplet processing;//instance fields of class ClearButton
     
     public ClearButton(float x, float y, PApplet processing) { //initializes ClearButton
         super(x, y, processing);

@@ -21,7 +21,7 @@ public class Furniture implements DormGUI {
         
         rotations = 0;
     }
-    // draws this bed at its current position
+    // draws this furniture at its current position
     public void update() {
         
         processing.image(image, position[0], position[1], rotations*PApplet.PI/2);
@@ -32,7 +32,7 @@ public class Furniture implements DormGUI {
         }
     }
     
-    // used to start dragging the bed, when the mouse is over this bed when it is pressed
+    // used to start dragging the furniture, when the mouse is over this bed when it is pressed
     public void mouseDown(Furniture[] furniture) {
         
         isDragging = isMouseOver();
@@ -41,33 +41,33 @@ public class Furniture implements DormGUI {
             update();
         }
     }
-    // used to indicate that the bed is no longer being dragged
+    // used to indicate that the furniture is no longer being dragged
     public void mouseUp() {
         
         isDragging = false;
     }
-    // helper method to determine whether the mouse is currently over this bed
+    // helper method to determine whether the mouse is currently over this furniture object
     public boolean isMouseOver() {
         
-        if(rotations % 2 == 0) { //if the bed image is rotated an even number of times
-            if((processing.mouseX > (position[0] - image.width/2) //if the mouse is within the bed in the horizontal orientation
+        if(rotations % 2 == 0) { //if the furniture image is rotated an even number of times
+            if((processing.mouseX > (position[0] - image.width/2) //if the mouse is within the furniture in the horizontal orientation
                 && processing.mouseX < (position[0] + image.width/2))
                 && (processing.mouseY > (position[1] - image.height/2)
                 && processing.mouseY < (position[1] + image.height/2))) {
-                    return true; //mouse is over bed
+                    return true; //mouse is over furniture
             }
-            else { //mouse is not over bed
+            else { //mouse is not over furniture
                 return false;
             }
         }
-        if(rotations % 2 == 1) { //if the bed image is rotated an odd number of times
-            if((processing.mouseX > (position[0] - image.height/2) //if the mouse is within the bed in the vertical orientation
+        if(rotations % 2 == 1) { //if the furniture image is rotated an odd number of times
+            if((processing.mouseX > (position[0] - image.height/2) //if the mouse is within the furniture in the vertical orientation
                 && processing.mouseX < (position[0] + image.height/2))
                 && processing.mouseY > (position[1] - image.width/2)
                 && processing.mouseY < (position[1] + image.width/2)) {
-                    return true; //mouse is over bed
+                    return true; //mouse is over furniture
             }
-            else { //mouse is not over bed
+            else { //mouse is not over furniture
                 return false;
             }
         }
@@ -80,7 +80,7 @@ public class Furniture implements DormGUI {
         rotations++;
         processing.image(image, position[0], position[1], rotations*PApplet.PI/2);
     }
-    public String getVals() {
+    public String getVals() { //method returns the type and position of the furniture objects
     	String data;
     
     	data= furnitureType.toLowerCase() + ":" + String.valueOf(position[0]) + 
