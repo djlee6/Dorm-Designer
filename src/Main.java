@@ -33,29 +33,27 @@ import java.util.ArrayList;
 // Online Sources:  (identify each URL and describe their assistance in detail)
 //
 /////////////////////////////// 80 COLUMNS WIDE ///////////////////////////////
+
+// Main class creates and handles all DormGUI objects including furniture and buttons.
 public class Main {
-    
     private PApplet processing; //instance fields of class main
     private PImage backgroundImage;
-    private int dragBedIndex;
     private ArrayList<DormGUI> guiObjects;
     private CreateFurnitureButton button;
+    
     /**
     * call back method called by the Utility class when the mouse button is pressed
     */
-    
     public static void main(String[] args) {
-        
         Utility.startApplication(); //begins program showing the dorm room
     }
-    
+    /* Constructor of the Main class initializing instance fields
+    * @param processing.
+    */
     public Main(PApplet processing) { //initializes Main class instance fields
-        
         this.processing = processing;
         
         backgroundImage = processing.loadImage("images/background.png");
-                
-        dragBedIndex = -1;
         
         guiObjects = new ArrayList<DormGUI>();
         
@@ -67,23 +65,20 @@ public class Main {
         guiObjects.add(new ClearButton(550, 24, processing));
         guiObjects.add(new SaveButton(650, 24, processing));
         guiObjects.add(new LoadButton(750, 24, processing));
-      
-        
     }
     
     public void update() { //update method displays current furniture positions
-        
         processing.background(95,158,160); //sets background color of room
-        
         processing.image(backgroundImage, processing.width/2, processing.height/2); //places the background image in center of window
         
         for( int i = 0; i < guiObjects.size(); i++) { //updates every guiObject
             guiObjects.get(i).update();
         }
     }
-    
-    
-    public void mouseDown() { //if the mouse is clicked this method determines which object the mouse is over and which mouseDown methods to call
+    /* If the mouse is clicked this method determines which object the mouse is over and
+     * which instance of mouseDown to call. 
+     */
+    public void mouseDown() {
         Furniture[] furniture = extractFurnitureFromGUIObjects();
         
         for(int i=0;i<guiObjects.size();i++) {
@@ -96,11 +91,10 @@ public class Main {
                 }
                 if(guiObjects.get(i) instanceof LoadButton) { //if the mouse is over LoadButton
                     guiObjects.get(i).mouseDown(furniture);
-                    
                     furniture = LoadButton.getFurniture(); //loads and replaces furniture objects
-                   if(furniture != null) {
-                    replaceFurnitureInGUIObjects(furniture);
-                   }
+                    if(furniture != null) {
+                        replaceFurnitureInGUIObjects(furniture);
+                    }
                     return;
                 }
                 if(guiObjects.get(i) instanceof SaveButton) { //if the mouse is over SaveButton

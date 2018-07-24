@@ -1,13 +1,19 @@
+/* Furniture class is a generic class that can represent any furniture object to be placed
+ * in the dorm room. Each Furniture object is a DormGUI object.
+ */
+
 public class Furniture implements DormGUI {
-    
-    private PApplet processing; //instance fields of class Bed
+    private PApplet processing; //instance fields of class Furniture
     private PImage image;
     private float[] position;
     private boolean isDragging;
     private int rotations;
     private String furnitureType;
 
-    // initializes the fields of a new bed object positioned in the center of the display
+    /* This constructor creates a new furniture object and centers it on the screen.
+     * @param furnitureType
+     * @param processing
+     */
     public Furniture(String furnitureType, PApplet processing) {
         this.furnitureType = furnitureType;
         this.processing = processing;
@@ -23,18 +29,19 @@ public class Furniture implements DormGUI {
     }
     // draws this furniture at its current position
     public void update() {
-        
         processing.image(image, position[0], position[1], rotations*PApplet.PI/2);
         
         if(isDragging) {
             position[0] = processing.mouseX;
-            position[1] = processing.mouseY;//sets the position of the bed to update
+            position[1] = processing.mouseY;//sets the position of the furniture to update
         }
     }
     
-    // used to start dragging the furniture, when the mouse is over this bed when it is pressed
+    /* Method used to start dragging the furniture, when the mouse is over this furniture object 
+     * and it is pressed.
+     * @param furniture
+     */
     public void mouseDown(Furniture[] furniture) {
-        
         isDragging = isMouseOver();
         
         if(isDragging) {
@@ -43,7 +50,6 @@ public class Furniture implements DormGUI {
     }
     // used to indicate that the furniture is no longer being dragged
     public void mouseUp() {
-        
         isDragging = false;
     }
     // helper method to determine whether the mouse is currently over this furniture object
@@ -89,6 +95,12 @@ public class Furniture implements DormGUI {
     
     return data;
     }
+    /*Constructor used when loading furniture from a saved file.
+     * @param type
+     * @param x, y positions
+     * @param rotations
+     * @param processing
+     */
     public Furniture(String type, float x, float y,int r, PApplet processing) {
         this.processing = processing;
         this.furnitureType = type;
